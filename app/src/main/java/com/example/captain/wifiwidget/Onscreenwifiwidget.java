@@ -9,6 +9,7 @@ import android.media.Image;
 import android.net.wifi.WifiManager;
 import android.widget.ImageButton;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 /**
  * Implementation of App Widget functionality.
@@ -78,17 +79,21 @@ public class Onscreenwifiwidget extends AppWidgetProvider {
     //måske lav en singleton med wifi manager istedet?
     @Override
     public void onReceive(Context context, Intent intent) {
+        WifiManager wifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
         super.onReceive(context, intent);
         if (intent.getAction().equals(YOUR_AWESOME_ACTION)) {
+            Toast.makeText(context, "Knap klikket", Toast.LENGTH_SHORT).show();
 
             /*
             WifiManager wifi = (WifiManager) getSystemService(Context.WIFI_SERVICE);
-            if(wifi.isWifiEnabled()){
-                wifi.setWifiEnabled(false); // true or false to activate/deactivate wifi
-            }else{
-                wifi.setWifiEnabled(true); // true or false to activate/deactivate wifi
-            }
             */
+            if(wifiManager.isWifiEnabled()){
+                wifiManager.setWifiEnabled(false); // true or false to activate/deactivate wifi
+            }else{
+                wifiManager.setWifiEnabled(true); // true or false to activate/deactivate wifi
+            }
+
         }
     }
 }
